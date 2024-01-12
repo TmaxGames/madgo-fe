@@ -2,8 +2,11 @@ import styled from 'styled-components';
 import TextInputField from './components/textInputField';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import ModalPortal from '@components/modalPortal';
+import JoinModal from './components/joinModal';
 
-export interface LoginForm {
+interface LoginForm {
     email: string;
     password: string;
 }
@@ -11,14 +14,23 @@ export interface LoginForm {
 const Home = () => {
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm<LoginForm>();
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
     const onSubmitLoginForm: SubmitHandler<LoginForm> = () => {
         console.log('submit');
         navigate('/lobby');
     };
 
+    const handleClickJoin = () => {
+        setIsOpenModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsOpenModal(false);
+    };
+
     return (
-        <HomeContainer>
+        <HomeContainer id="root-container">
             <GameTitle>모두의 맞고</GameTitle>
             <LoginForm onSubmit={handleSubmit(onSubmitLoginForm)}>
                 <TextInputField register={register} name="email" label="이메일" required />
@@ -26,8 +38,11 @@ const Home = () => {
                 <LoginButton type="submit" value="로그인" />
             </LoginForm>
             <Buttons>
-                <JoinButton>회원가입</JoinButton>
+                <JoinButton onClick={handleClickJoin}>회원가입</JoinButton>
             </Buttons>
+            <ModalPortal isOpen={isOpenModal}>
+                <JoinModal onClickClose={handleCloseModal} />
+            </ModalPortal>
         </HomeContainer>
     );
 };

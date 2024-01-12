@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { UseFormRegister, FieldValues, Path, PathValue } from 'react-hook-form';
+import { UseFormRegister, FieldValues, Path, PathValue, Validate } from 'react-hook-form';
 import styled from 'styled-components';
 
 interface TextInputFieldProps<T extends FieldValues> {
@@ -12,6 +12,9 @@ interface TextInputFieldProps<T extends FieldValues> {
     placeholder?: string;
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
     value?: PathValue<T, Path<T>>;
+    validate?:
+        | Validate<PathValue<T, Path<T>>, T>
+        | Record<string, Validate<PathValue<T, Path<T>>, T>>;
 }
 
 const TextInputField = <T extends FieldValues>({
@@ -24,12 +27,13 @@ const TextInputField = <T extends FieldValues>({
     placeholder,
     value,
     onChange,
+    validate,
 }: TextInputFieldProps<T>) => {
     return (
         <TextInputFieldContainer>
             <Label htmlFor={id}>{label}</Label>
             <Input
-                {...register(name, { required, value, onChange })}
+                {...register(name, { required, value, onChange, validate })}
                 type={type}
                 placeholder={placeholder}
             />

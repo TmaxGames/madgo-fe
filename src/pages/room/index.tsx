@@ -80,7 +80,7 @@ const CenterCards = styled.div`
 
 const Player1P = styled.div`
     width: 400px;
-    height: 250px;
+    height: 280px;
     background-color: grey;
     position: absolute;
     border-radius: 10px;
@@ -111,7 +111,7 @@ const EmotionButton = styled.button``;
 
 const Player2P = styled.div`
     width: 400px;
-    height: 250px;
+    height: 280px;
     background-color: grey;
     position: absolute;
     border-radius: 10px;
@@ -179,7 +179,7 @@ const Player1Chat = styled.div`
     width: 400px;
     height: 80px;
     left: 30px;
-    bottom: 300px;
+    bottom: 310px;
     border-radius: 20px;
     background-color: white;
     display: flex;
@@ -203,7 +203,7 @@ const Player2Chat = styled.div`
     width: 400px;
     height: 80px;
     right: 30px;
-    top: 300px;
+    top: 310px;
     border-radius: 20px;
     background-color: white;
     display: flex;
