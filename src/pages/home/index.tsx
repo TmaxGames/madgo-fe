@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import TextInputField from './components/textInputField';
+import TextInputField from './components/joinModal/components/textInputField';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -80,13 +80,20 @@ const Buttons = styled.div`
 `;
 
 const LoginButton = styled.input`
+    width: 100px;
     background-color: white;
     padding: 10px;
-    width: 100%;
     border-radius: 2px;
-    cursor: pointer;
     outline: none;
     border: none;
+    cursor: pointer;
 `;
 
-const JoinButton = styled.button``;
+const JoinButton = styled.button`
+    width: 100px;
+    padding: 10px;
+    border-radius: 2px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+`;
