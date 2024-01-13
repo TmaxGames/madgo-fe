@@ -23,7 +23,10 @@ const Lobby = () => {
         <LobbyContainer>
             <Header>
                 <ServiceName>모두의 맞고</ServiceName>
-                <Tutorial>배워보기</Tutorial>
+                <HeaderMenu>
+                    <TutorialButton>배워보기</TutorialButton>
+                    <LogoutButton>로그아웃</LogoutButton>
+                </HeaderMenu>
             </Header>
             <Body>
                 <Ranking />
@@ -51,19 +54,31 @@ const LobbyContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    padding: 30px;
+    background-color: gainsboro;
 `;
 
 const EnterButtons = styled.div`
     display: flex;
-    gap: 10px;
+    gap: 20px;
 `;
 
-const CreateRoomButton = styled.button``;
+const CreateRoomButton = styled.button`
+    width: 100px;
+    padding: 20px;
+    cursor: pointer;
+`;
 
-const EnterRoomButton = styled.button``;
+const EnterRoomButton = styled.button`
+    width: 100px;
+    padding: 20px;
+    cursor: pointer;
+`;
 
-const MatchingButtom = styled.button``;
+const MatchingButtom = styled.button`
+    width: 100px;
+    padding: 20px;
+    cursor: pointer;
+`;
 
 const Header = styled.div`
     width: 100%;
@@ -86,8 +101,27 @@ const Body = styled.div`
     justify-content: space-evenly;
 `;
 
-const Footer = styled.div``;
+const Footer = styled.div`
+    width: 100%;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    padding: 30px;
+`;
 
-const Tutorial = styled.button`
+const HeaderMenu = styled.div`
+    display: flex;
+    gap: 20px;
+`;
+
+const TutorialButton = styled.button`
     width: 100px;
+    padding: 10px;
+`;
+
+const LogoutButton = styled.button`
+    width: 100px;
+    padding: 10px;
 `;

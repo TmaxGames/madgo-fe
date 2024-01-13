@@ -14,7 +14,7 @@ const MyProfile = () => {
                     점수: {rankClass} {gamePoint}점
                 </Class>
                 <GameMoney>게임머니: {money}</GameMoney>
-                <GameRecord>{record}(승률 50%)</GameRecord>
+                <GameRecord>{record}(승률 100%)</GameRecord>
             </PlayerInfo>
             <Buttons>
                 <ChangeNicknameButton>닉네임 변경</ChangeNicknameButton>

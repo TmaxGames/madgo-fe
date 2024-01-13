@@ -16,5 +16,13 @@ export default defineConfig({
       {find: "@assets", replacement: resolve("src/assets")},
       {find: "@styles", replacement: resolve("src/styles")},
     ]
+  },
+  server: {
+    proxy: {
+      '/security/v1': {
+        target:"http://192.168.155.95:8081",
+        changeOrigin:true,
+      },
+    }, 
   }
 })

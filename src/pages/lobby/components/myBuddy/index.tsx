@@ -5,7 +5,10 @@ import Buddy from './buddy';
 const MyBuddy = () => {
     return (
         <MyBuddyContainer>
-            <Title>친구</Title>
+            <Header>
+                <Title>친구</Title>
+                <AddBuddy>친구추가</AddBuddy>
+            </Header>
             <BuddyList>
                 {MyBuddyData.map(({ nickname, state }) => (
                     <Buddy nickname={nickname} state={state} />
@@ -22,16 +25,23 @@ const MyBuddyContainer = styled.div`
     border: 8px solid red;
     border-radius: 10px;
     padding: 10px;
+    padding: 10px;
+    background-color: white;
 `;
 
-const Title = styled.div`
+const Header = styled.div`
     height: 50px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background-color: bisque;
     font-size: 20px;
+    padding: 0 10px;
 `;
+
+const Title = styled.div``;
+
+const AddBuddy = styled.button``;
 
 const BuddyList = styled.div`
     height: 500px;

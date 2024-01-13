@@ -3,8 +3,9 @@ import TextInputField from './components/joinModal/textInputField';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import ModalPortal from '@components/modalPortal/index.';
 import JoinModal from './components/joinModal';
+import { requestLoginUser } from '@api/user';
+import AlertModal from './components/alertModal';
 
 interface LoginForm {
     email: string;
@@ -15,34 +16,60 @@ const Home = () => {
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm<LoginForm>();
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState<string>('');
 
-    const onSubmitLoginForm: SubmitHandler<LoginForm> = () => {
-        navigate('/lobby');
+    const onSubmitLoginForm: SubmitHandler<LoginForm> = async (fieldValues) => {
+        const { email, password } = fieldValues;
+        const res = await requestLoginUser({ email, password });
+
+        if (res.status === 200) navigate('/lobby');
+        else if (res.status === 403) setAlertMessage('이미 접속중인 계정입니다.');
+        else setAlertMessage('로그인에 실패했습니다. 다시 시도해주세요.');
     };
 
     const handleClickJoin = () => {
         setIsOpenModal(true);
     };
 
-    const handleCloseModal = () => {
+    const handleCloseJoinModal = () => {
         setIsOpenModal(false);
     };
 
+    const handleCloseAlertModal = () => {
+        setAlertMessage('');
+    };
+
     return (
-        <HomeContainer id="root-container">
-            <GameTitle>모두의 맞고</GameTitle>
-            <LoginForm onSubmit={handleSubmit(onSubmitLoginForm)}>
-                <TextInputField register={register} name="email" label="이메일" required />
-                <TextInputField register={register} name="password" label="비밀번호" required />
-                <LoginButton type="submit" value="로그인" />
-            </LoginForm>
-            <Buttons>
-                <JoinButton onClick={handleClickJoin}>회원가입</JoinButton>
-            </Buttons>
-            <ModalPortal isOpen={isOpenModal}>
-                <JoinModal onClickClose={handleCloseModal} />
-            </ModalPortal>
-        </HomeContainer>
+        <>
+            <HomeContainer id="root-container">
+                <GameTitle>모두의 맞고</GameTitle>
+                <LoginForm onSubmit={handleSubmit(onSubmitLoginForm)}>
+                    <TextInputField
+                        register={register}
+                        name="email"
+                        id="email"
+                        label="이메일"
+                        required
+                    />
+                    <TextInputField
+                        register={register}
+                        name="password"
+                        id="passowrd"
+                        type="password"
+                        label="비밀번호"
+                        required
+                    />
+                    <LoginButton type="submit" value="로그인" />
+                </LoginForm>
+                <Buttons>
+                    <JoinButton onClick={handleClickJoin}>회원가입</JoinButton>
+                </Buttons>
+            </HomeContainer>
+            {isOpenModal && <JoinModal onClickClose={handleCloseJoinModal} />}
+            {alertMessage && (
+                <AlertModal message={alertMessage} onClickClose={handleCloseAlertModal} />
+            )}
+        </>
     );
 };
 

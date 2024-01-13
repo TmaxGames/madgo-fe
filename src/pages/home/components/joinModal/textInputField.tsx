@@ -42,6 +42,7 @@ const TextInputField = <T extends FieldValues>({
                 <Input
                     {...register(name, { required, value, onChange, validate, pattern })}
                     type={type}
+                    id={id}
                     placeholder={placeholder}
                 />
                 {existCheck && <ExistCehckButton disabled={!value}>중복확인</ExistCehckButton>}
@@ -69,6 +70,7 @@ const Field = styled.div`
 const Label = styled.label`
     min-width: 80px;
     font-size: 12px;
+    cursor: pointer;
 `;
 
 const Input = styled.input`

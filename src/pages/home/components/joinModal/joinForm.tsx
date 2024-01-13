@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import TextInputField from './textInputField';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { requestCreateUser } from '@api/user';
 
 interface IJoinForm {
     email: string;
@@ -19,8 +20,10 @@ const JoinForm = () => {
 
     const { email: emailValue, nickname: nicknameValue } = watch();
 
-    const onSubmitJoinForm: SubmitHandler<IJoinForm> = () => {
-        console.log('join');
+    const onSubmitJoinForm: SubmitHandler<IJoinForm> = (fieldValues) => {
+        const { email, password, nickname } = fieldValues;
+        const isCretated = requestCreateUser({ email, password, nickname });
+        console.log(isCretated);
     };
 
     const validatePasswordMatch = (value: string, formValues: IJoinForm) => {
@@ -35,6 +38,7 @@ const JoinForm = () => {
                     register={register}
                     value={emailValue}
                     name="email"
+                    id="email"
                     label="이메일"
                     required={'이메일은 필수 항목입니다.'}
                     pattern={{
@@ -45,28 +49,30 @@ const JoinForm = () => {
                     errorMessage={errors.email?.message}
                     existCheck
                 />
-
                 <TextInputField
                     register={register}
                     value={nicknameValue}
                     name="nickname"
+                    id="nickname"
                     label="닉네임"
                     required={'닉네임은 필수 항목입니다.'}
                     errorMessage={errors.nickname?.message}
                     existCheck
                 />
-
                 <TextInputField
                     register={register}
                     name="password"
+                    type="password"
+                    id="passoword"
                     label="비밀번호"
                     required={'비밀번호는 필수 항목입니다.'}
                     errorMessage={errors.password?.message}
                 />
-
                 <TextInputField
                     register={register}
                     name="confirmPassword"
+                    type="password"
+                    id="confirm_password"
                     label="비밀번호 확인"
                     validate={validatePasswordMatch}
                     required={'비밀번호를 재입력 해주세요.'}

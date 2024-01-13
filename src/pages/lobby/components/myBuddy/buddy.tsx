@@ -15,7 +15,7 @@ const Buddy = ({ nickname, state }: BuddyProps) => {
                 <Nickname>{nickname}</Nickname>
             </BuddyInfo>
             <State>
-                {state === 'playing' ? 'game' : state === 'online' ? '접속중' : '오프라인'}
+                {state === 'playing' ? '게임중' : state === 'online' ? '접속중' : '오프라인'}
             </State>
         </BuddyContainer>
     );

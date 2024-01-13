@@ -28,15 +28,16 @@ const RankingContainer = styled.div`
     border: 8px solid red;
     border-radius: 10px;
     padding: 10px;
+    background-color: white;
 `;
 
 const Title = styled.div`
     height: 50px;
     display: flex;
-    justify-content: center;
     align-items: center;
     background-color: bisque;
     font-size: 20px;
+    padding: 0 10px;
 `;
 
 const RankerList = styled.div`

@@ -1,27 +1,31 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import ServicePolicy from './servicePolicy';
 import JoinForm from './joinForm';
+import ModalBackDrop from '@components/modalBackDrop';
 
 interface JoinModalProps {
     onClickClose: () => void;
 }
 
 const JoinModal = ({ onClickClose }: JoinModalProps) => {
+    const rootElement = document.getElementById('root-container') as HTMLElement;
     const [isAgreedPolicy, setIsAgreedPolicy] = useState<boolean>(false);
 
     const handleClickNext = () => {
         setIsAgreedPolicy(true);
     };
 
-    return (
+    return createPortal(
         <>
             <JoinModalContainer>
                 {!isAgreedPolicy && <ServicePolicy onClickNext={handleClickNext} />}
                 {isAgreedPolicy && <JoinForm />}
             </JoinModalContainer>
-            <BackDrop onClick={onClickClose} />
-        </>
+            <ModalBackDrop onClickClose={onClickClose} />
+        </>,
+        rootElement
     );
 };
 
@@ -38,11 +42,4 @@ const JoinModalContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 50px;
-`;
-
-const BackDrop = styled.div`
-    width: 100%;
-    height: 100vh;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.3);
 `;

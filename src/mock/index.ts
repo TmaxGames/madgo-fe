@@ -15,7 +15,7 @@ export const rankingData = [
     },
     {
         rank: '3',
-        nickname: '박대연',
+        nickname: '너오늘야근이야?',
         rankClass: '챌린저',
         gamePoint: '543120점',
         record: '100전 85승 15패',
@@ -50,6 +50,12 @@ export const MyBuddyData = [
     {
         uuid: 1,
         nickname: '급발진걸',
+        profileImage: '',
+        state: 'playing',
+    },
+    {
+        uuid: 2,
+        nickname: '나약이',
         profileImage: '',
         state: 'playing',
     },
