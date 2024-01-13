@@ -18,7 +18,6 @@ const AlertModal = ({ message, onClickClose }: AlertModalProps) => {
             </AlertModalContainer>
             <ModalBackDrop onClickClose={onClickClose} />
         </>,
-
         rootElement
     );
 };

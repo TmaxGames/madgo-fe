@@ -20,9 +20,9 @@ const Lobby = () => {
     };
 
     return (
-        <LobbyContainer>
+        <LobbyContainer id="root-container">
             <Header>
-                <ServiceName>모두의 맞고</ServiceName>
+                <ServiceName>로비</ServiceName>
                 <HeaderMenu>
                     <TutorialButton>배워보기</TutorialButton>
                     <LogoutButton>로그아웃</LogoutButton>

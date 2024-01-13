@@ -1,20 +1,35 @@
 import { MyBuddyData } from 'mock';
 import { styled } from 'styled-components';
 import Buddy from './buddy';
+import { useState } from 'react';
+import AddBuddyModal from '../addBuddyModal';
 
 const MyBuddy = () => {
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+
+    const handleClcikAddBuddy = () => {
+        setIsOpenModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsOpenModal(false);
+    };
+
     return (
-        <MyBuddyContainer>
-            <Header>
-                <Title>친구</Title>
-                <AddBuddy>친구추가</AddBuddy>
-            </Header>
-            <BuddyList>
-                {MyBuddyData.map(({ nickname, state }) => (
-                    <Buddy nickname={nickname} state={state} />
-                ))}
-            </BuddyList>
-        </MyBuddyContainer>
+        <>
+            <MyBuddyContainer>
+                <Header>
+                    <Title>친구</Title>
+                    <AddBuddy onClick={handleClcikAddBuddy}>친구추가</AddBuddy>
+                </Header>
+                <BuddyList>
+                    {MyBuddyData.map(({ nickname, state }) => (
+                        <Buddy nickname={nickname} state={state} />
+                    ))}
+                </BuddyList>
+            </MyBuddyContainer>
+            {isOpenModal && <AddBuddyModal onClickClose={handleCloseModal} />}
+        </>
     );
 };
 
