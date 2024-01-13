@@ -1,6 +1,6 @@
 import { MyBuddyData } from 'mock';
 import { styled } from 'styled-components';
-import Buddy from './components/buddy';
+import Buddy from './buddy';
 
 const MyBuddy = () => {
     return (

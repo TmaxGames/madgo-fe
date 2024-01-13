@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Ranking from './components/ranking';
 import MyProfile from './components/myProfile';
-import MyBuddy from './components/buddy';
+import MyBuddy from './components/myBuddy';
 
 const Lobby = () => {
     const navigate = useNavigate();
