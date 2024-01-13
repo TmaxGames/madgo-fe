@@ -35,8 +35,8 @@ const ServicePolicy = ({ onClickNext }: ServicePolicyProps) => {
                 어쩌구저쩌구 이런들저런들 왈가왈부 갑이니 을이니 니가 잘났니 내가 못났니...
             </Contents>
             <AgreeInputField>
-                <AgreeInput type="checkbox" onChange={handleChangeCheckbox} />
-                <AgreeText>이용약관을 잘 읽고 이해했으며, 내용에 동의합니다.</AgreeText>
+                <CheckboxInput id="agree" type="checkbox" onChange={handleChangeCheckbox} />
+                <Label htmlFor="agree">이용약관을 잘 읽고 이해했으며, 내용에 동의합니다.</Label>
             </AgreeInputField>
             <NextButton onClick={onClickNext} disabled={!checkedAgree}>
                 계속 진행
@@ -77,12 +77,13 @@ const AgreeInputField = styled.div`
     align-items: center;
 `;
 
-const AgreeInput = styled.input`
+const CheckboxInput = styled.input`
     cursor: pointer;
 `;
 
-const AgreeText = styled.span`
+const Label = styled.label`
     font-size: 13px;
+    cursor: pointer;
 `;
 
 const NextButton = styled.button`

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import ServicePolicy from './components/servicePolicy';
-import JoinForm from './components/joinForm';
+import ServicePolicy from './servicePolicy';
+import JoinForm from './joinForm';
 
 interface JoinModalProps {
     onClickClose: () => void;

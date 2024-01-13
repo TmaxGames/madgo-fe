@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import TextInputField from './components/joinModal/components/textInputField';
+import TextInputField from './components/joinModal/textInputField';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import ModalPortal from '@components/modalPortal';
+import ModalPortal from '@components/modalPortal/index.';
 import JoinModal from './components/joinModal';
 
 interface LoginForm {
@@ -17,7 +17,6 @@ const Home = () => {
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
     const onSubmitLoginForm: SubmitHandler<LoginForm> = () => {
-        console.log('submit');
         navigate('/lobby');
     };
 
