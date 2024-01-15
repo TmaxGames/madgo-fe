@@ -14,7 +14,11 @@ interface LoginForm {
 
 const Home = () => {
     const navigate = useNavigate();
-    const { register, handleSubmit } = useForm<LoginForm>();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<LoginForm>({ mode: 'onChange' });
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
     const [alertMessage, setAlertMessage] = useState<string>('');
 
@@ -39,6 +43,11 @@ const Home = () => {
         setAlertMessage('');
     };
 
+    const handleSuccessJoin = () => {
+        setIsOpenModal(false);
+        setAlertMessage('가입 성공! 로그인 해주세요!');
+    };
+
     return (
         <>
             <HomeContainer id="root-container">
@@ -49,7 +58,13 @@ const Home = () => {
                         name="email"
                         id="email"
                         label="이메일"
-                        required
+                        required={'이메일은 필수 항목입니다.'}
+                        pattern={{
+                            // eslint-disable-next-line
+                            value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                            message: '올바른 이메일 형식이 아닙니다.',
+                        }}
+                        errorMessage={errors.email?.message}
                     />
                     <TextInputField
                         register={register}
@@ -57,7 +72,8 @@ const Home = () => {
                         id="passowrd"
                         type="password"
                         label="비밀번호"
-                        required
+                        required={'비밀번호는 필수 항목입니다.'}
+                        errorMessage={errors.password?.message}
                     />
                     <LoginButton type="submit" value="로그인" />
                 </LoginForm>
@@ -65,7 +81,9 @@ const Home = () => {
                     <JoinButton onClick={handleClickJoin}>회원가입</JoinButton>
                 </Buttons>
             </HomeContainer>
-            {isOpenModal && <JoinModal onClickClose={handleCloseJoinModal} />}
+            {isOpenModal && (
+                <JoinModal onClickClose={handleCloseJoinModal} onSuccessJoin={handleSuccessJoin} />
+            )}
             {alertMessage && (
                 <AlertModal message={alertMessage} onClickClose={handleCloseAlertModal} />
             )}

@@ -6,10 +6,11 @@ import JoinForm from './joinForm';
 import ModalBackDrop from '@components/modalBackDrop';
 
 interface JoinModalProps {
+    onSuccessJoin: () => void;
     onClickClose: () => void;
 }
 
-const JoinModal = ({ onClickClose }: JoinModalProps) => {
+const JoinModal = ({ onSuccessJoin, onClickClose }: JoinModalProps) => {
     const rootElement = document.getElementById('root-container') as HTMLElement;
     const [isAgreedPolicy, setIsAgreedPolicy] = useState<boolean>(false);
 
@@ -21,7 +22,7 @@ const JoinModal = ({ onClickClose }: JoinModalProps) => {
         <>
             <JoinModalContainer>
                 {!isAgreedPolicy && <ServicePolicy onClickNext={handleClickNext} />}
-                {isAgreedPolicy && <JoinForm />}
+                {isAgreedPolicy && <JoinForm onSuccess={onSuccessJoin} />}
             </JoinModalContainer>
             <ModalBackDrop onClickClose={onClickClose} />
         </>,

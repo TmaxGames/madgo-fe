@@ -10,7 +10,11 @@ interface IJoinForm {
     confirmPassword: string;
 }
 
-const JoinForm = () => {
+interface JoinFormProps {
+    onSuccess: () => void;
+}
+
+const JoinForm = ({ onSuccess }: JoinFormProps) => {
     const {
         register,
         handleSubmit,
@@ -20,10 +24,12 @@ const JoinForm = () => {
 
     const { email: emailValue, nickname: nicknameValue } = watch();
 
-    const onSubmitJoinForm: SubmitHandler<IJoinForm> = (fieldValues) => {
+    const onSubmitJoinForm: SubmitHandler<IJoinForm> = async (fieldValues) => {
         const { email, password, nickname } = fieldValues;
-        const isCretated = requestCreateUser({ email, password, nickname });
-        console.log(isCretated);
+        const isCretated = await requestCreateUser({ email, password, nickname });
+        if (isCretated) {
+            onSuccess();
+        }
     };
 
     const validatePasswordMatch = (value: string, formValues: IJoinForm) => {
@@ -78,7 +84,6 @@ const JoinForm = () => {
                     required={'비밀번호를 재입력 해주세요.'}
                     errorMessage={errors.confirmPassword?.message}
                 />
-
                 <JoinButton type="submit" value="가입완료" />
             </Form>
         </JoinFormContainer>
