@@ -23,9 +23,30 @@ const MyBuddy = () => {
                     <AddBuddy onClick={handleClcikAddBuddy}>친구추가</AddBuddy>
                 </Header>
                 <BuddyList>
-                    {MyBuddyData.map(({ nickname, state }) => (
-                        <Buddy nickname={nickname} state={state} />
-                    ))}
+                    {MyBuddyData.map(
+                        ({
+                            uuid,
+                            nickname,
+                            rank,
+                            rankClass,
+                            gamePoint,
+                            gameMoney,
+                            record,
+                            state,
+                        }) => (
+                            <Buddy
+                                key={uuid}
+                                uuid={uuid}
+                                nickname={nickname}
+                                rank={rank}
+                                rankClass={rankClass}
+                                gamePoint={gamePoint}
+                                gameMoney={gameMoney}
+                                record={record}
+                                state={state}
+                            />
+                        )
+                    )}
                 </BuddyList>
             </MyBuddyContainer>
             {isOpenModal && <AddBuddyModal onClickClose={handleCloseModal} />}
@@ -56,7 +77,9 @@ const Header = styled.div`
 
 const Title = styled.div``;
 
-const AddBuddy = styled.button``;
+const AddBuddy = styled.button`
+    cursor: pointer;
+`;
 
 const BuddyList = styled.div`
     height: 500px;

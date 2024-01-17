@@ -35,3 +35,14 @@ export const requestLoginUser = async ({ email, password }: RequestJoinUserParam
     });
     return res;
 };
+
+export const requestLogoutUser = async (email: string) => {
+    const res = await request({
+        method: 'POST',
+        url: 'security/v1/session/logout',
+        data: {
+            accountId: email,
+        },
+    });
+    return res;
+};

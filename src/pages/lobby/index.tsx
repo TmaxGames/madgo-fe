@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Ranking from './components/ranking';
 import MyProfile from './components/myProfile';
 import MyBuddy from './components/myBuddy';
+import { requestLogoutUser } from '@api/user';
 
 const Lobby = () => {
     const navigate = useNavigate();
@@ -19,28 +20,37 @@ const Lobby = () => {
         navigate('/room/1');
     };
 
+    const handleClickLogout = async () => {
+        const isLoggedOut = await requestLogoutUser('');
+        if (isLoggedOut) {
+            navigate('/');
+        }
+    };
+
     return (
-        <LobbyContainer id="root-container">
-            <Header>
-                <ServiceName>로비</ServiceName>
-                <HeaderMenu>
-                    <TutorialButton>배워보기</TutorialButton>
-                    <LogoutButton>로그아웃</LogoutButton>
-                </HeaderMenu>
-            </Header>
-            <Body>
-                <Ranking />
-                <MyProfile />
-                <MyBuddy />
-            </Body>
-            <Footer>
-                <EnterButtons>
-                    <CreateRoomButton onClick={handleCreateRoom}>방만들기</CreateRoomButton>
-                    <EnterRoomButton onClick={handleEnterRoom}>방입장</EnterRoomButton>
-                    <MatchingButtom onClick={handleClickMatching}>빠른입장</MatchingButtom>
-                </EnterButtons>
-            </Footer>
-        </LobbyContainer>
+        <>
+            <LobbyContainer id="root-container">
+                <Header>
+                    <ServiceName>로비</ServiceName>
+                    <HeaderMenu>
+                        <TutorialButton>배워보기</TutorialButton>
+                        <LogoutButton onClick={handleClickLogout}>로그아웃</LogoutButton>
+                    </HeaderMenu>
+                </Header>
+                <Body>
+                    <Ranking />
+                    <MyProfile />
+                    <MyBuddy />
+                </Body>
+                <Footer>
+                    <EnterButtons>
+                        <CreateRoomButton onClick={handleCreateRoom}>방만들기</CreateRoomButton>
+                        <EnterRoomButton onClick={handleEnterRoom}>방입장</EnterRoomButton>
+                        <MatchingButtom onClick={handleClickMatching}>빠른입장</MatchingButtom>
+                    </EnterButtons>
+                </Footer>
+            </LobbyContainer>
+        </>
     );
 };
 
