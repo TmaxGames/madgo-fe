@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import Ranking from './components/ranking';
 import MyProfile from './components/myProfile';
 import MyBuddy from './components/myBuddy';
-import { requestLogoutUser } from '@api/user';
+import { requestLogoutUser } from '@api/auth';
+import { useEffect } from 'react';
+import { requestMyProfile } from '@api/player';
 
 const Lobby = () => {
     const navigate = useNavigate();
@@ -21,11 +23,22 @@ const Lobby = () => {
     };
 
     const handleClickLogout = async () => {
-        const isLoggedOut = await requestLogoutUser('');
-        if (isLoggedOut) {
+        const isLoggedOut = await requestLogoutUser('test2@tmax.co.kr');
+        if (isLoggedOut.status === 200) {
             navigate('/');
         }
     };
+
+    useEffect(() => {
+        const getMyProfile = async () => {
+            const myProfile = await requestMyProfile('test2@tmax.co.kr');
+            console.log(myProfile);
+            return myProfile;
+        };
+
+        const myProfileData = getMyProfile();
+        console.log(myProfileData);
+    });
 
     return (
         <>
@@ -129,9 +142,11 @@ const HeaderMenu = styled.div`
 const TutorialButton = styled.button`
     width: 100px;
     padding: 10px;
+    cursor: pointer;
 `;
 
 const LogoutButton = styled.button`
     width: 100px;
     padding: 10px;
+    cursor: pointer;
 `;

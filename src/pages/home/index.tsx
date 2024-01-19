@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import JoinModal from './components/joinModal';
-import { requestLoginUser } from '@api/user';
+import { requestLoginUser } from '@api/auth';
 import AlertModal from './components/alertModal';
 
 interface LoginForm {

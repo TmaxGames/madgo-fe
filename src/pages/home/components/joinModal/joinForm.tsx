@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import TextInputField from './textInputField';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { requestCreateUser } from '@api/user';
+import { requestCreateUser } from '@api/auth';
 
 interface IJoinForm {
     email: string;

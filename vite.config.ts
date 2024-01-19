@@ -23,6 +23,10 @@ export default defineConfig({
         target:"http://192.168.155.95:8081",
         changeOrigin:true,
       },
+      '/api/v1': {
+        target:"http://192.168.155.95:8082",
+        changeOrigin:true,
+      },
     }, 
   }
 })
