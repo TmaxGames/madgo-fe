@@ -46,3 +46,11 @@ export const requestLogoutUser = async (email: string) => {
     });
     return res;
 };
+
+export const requestRefreshToken = async () => {
+    const res = await request({
+        method: 'POST',
+        url: '',
+    });
+    return res;
+};

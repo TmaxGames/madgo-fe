@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getAccessToken } from './auth/accessToken';
 
 type HTTPReqMethods = 'GET' | 'POST';
 
@@ -10,9 +11,12 @@ type RequestType = {
 };
 
 export const request = async ({ method, url, params, data }: RequestType) => {
+    const accessToken = getAccessToken();
+
     return axios({
         headers: {
             'Content-Type': 'application/json; charset=UTF=8',
+            Authorization: accessToken ? `bearer ${accessToken}` : '',
         },
         method,
         url,

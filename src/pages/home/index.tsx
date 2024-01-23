@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import JoinModal from './components/joinModal';
-import { requestLoginUser } from '@api/auth';
+import { requestJWT, requestLoginUser } from '@api/auth';
 import AlertModal from './components/alertModal';
 
 interface LoginForm {
@@ -24,9 +24,9 @@ const Home = () => {
 
     const onSubmitLoginForm: SubmitHandler<LoginForm> = async (fieldValues) => {
         const { email, password } = fieldValues;
-        const res = await requestLoginUser({ email, password });
-
-        if (res.status === 200) navigate('/lobby');
+        const res = await requestJWT(email, password);
+        console.log(res);
+        if (res.token) navigate('/lobby');
         else if (res.status === 403) setAlertMessage('이미 접속중인 계정입니다.');
         else setAlertMessage('로그인에 실패했습니다. 다시 시도해주세요.');
     };
