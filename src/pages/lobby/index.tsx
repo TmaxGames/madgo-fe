@@ -5,7 +5,7 @@ import MyProfile from './components/myProfile';
 import MyBuddy from './components/myBuddy';
 import { requestLogoutUser } from '@api/auth';
 import { useEffect } from 'react';
-import { requestMyProfile } from '@api/player';
+import { getAccessToken } from '@api/auth/accessToken';
 
 const Lobby = () => {
     const navigate = useNavigate();
@@ -30,14 +30,8 @@ const Lobby = () => {
     };
 
     useEffect(() => {
-        const getMyProfile = async () => {
-            const myProfile = await requestMyProfile('test2@tmax.co.kr');
-            console.log(myProfile);
-            return myProfile;
-        };
-
-        const myProfileData = getMyProfile();
-        console.log(myProfileData);
+        const accessToken = getAccessToken();
+        console.log(accessToken);
     });
 
     return (

@@ -1,4 +1,4 @@
-import { request } from '@api/index';
+import { authRequest, request } from '@api/index';
 
 interface RequestCrateUserParams {
     email: string;
@@ -11,8 +11,8 @@ interface RequestJoinUserParams {
     password: string;
 }
 
-export const requestCreateUser = async ({ email, password, nickname }: RequestCrateUserParams) => {
-    const res = await request({
+export const requestCreateUser = ({ email, password, nickname }: RequestCrateUserParams) => {
+    const res = authRequest({
         method: 'POST',
         url: 'security/v1/account/sign-up',
         data: {
@@ -24,20 +24,20 @@ export const requestCreateUser = async ({ email, password, nickname }: RequestCr
     return res;
 };
 
-export const requestLoginUser = async ({ email, password }: RequestJoinUserParams) => {
-    const res = await request({
+export const requestLoginUser = ({ email, password }: RequestJoinUserParams) => {
+    const res = authRequest({
         method: 'POST',
-        url: 'security/v1/session/login',
+        url: 'security/v1/jwt/issue',
         data: {
-            accountId: email,
+            id: email,
             password,
         },
     });
     return res;
 };
 
-export const requestLogoutUser = async (email: string) => {
-    const res = await request({
+export const requestLogoutUser = (email: string) => {
+    const res = request({
         method: 'POST',
         url: 'security/v1/session/logout',
         data: {
@@ -47,10 +47,10 @@ export const requestLogoutUser = async (email: string) => {
     return res;
 };
 
-export const requestRefreshToken = async () => {
-    const res = await request({
+export const requestRefreshToken = () => {
+    const res = authRequest({
         method: 'POST',
-        url: '',
+        url: '/security/v1/jwt/refresh',
     });
     return res;
 };

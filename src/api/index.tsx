@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { getAccessToken } from './auth/accessToken';
+import { getAccessToken, setAccessToken } from './auth/accessToken';
+import { requestRefreshToken } from './auth';
 
 type HTTPReqMethods = 'GET' | 'POST';
 
@@ -10,7 +11,7 @@ type RequestType = {
     data?: object;
 };
 
-export const request = async ({ method, url, params, data }: RequestType) => {
+export const authRequest = async ({ method, url, params, data }: RequestType) => {
     const accessToken = getAccessToken();
 
     return axios({
@@ -29,4 +30,47 @@ export const request = async ({ method, url, params, data }: RequestType) => {
         .catch((error) => {
             return error.response.data;
         });
+};
+
+export const request = ({ method, url, params, data }: RequestType) => {
+    const requestInstance = axios.create({
+        method,
+        url,
+        params: { ...params },
+        data,
+    });
+
+    requestInstance.interceptors.request.use((config) => {
+        const accessToken = getAccessToken();
+        config.headers.Authorization = `Bearer ${accessToken}`;
+        config.headers.accountId = 'test2@tmax.co.kr';
+        return config;
+    });
+
+    requestInstance.interceptors.response.use(
+        async (res) => {
+            return res.data;
+        },
+        async (error) => {
+            const {
+                config,
+                response: { status },
+            } = error;
+
+            if (status === 401) {
+                if (error.response.data.message === 'Unauthorized') {
+                    const originRequest = config;
+                    const res = await requestRefreshToken();
+
+                    setAccessToken(res.data.accessToken);
+                    if (res) {
+                        originRequest.headers.Authorization = `Bearer ${res.data.accessToken}`;
+                    }
+                }
+                return axios(config);
+            } else {
+                return Promise.reject(error);
+            }
+        }
+    );
 };
