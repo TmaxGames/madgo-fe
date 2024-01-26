@@ -20,7 +20,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/security/v1': {
-        target:"http://192.168.155.95:8080",
+        target:"http://192.168.155.95:8081",
         changeOrigin:true,
       },
       '/api/v1': {

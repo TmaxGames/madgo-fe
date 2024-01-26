@@ -11,8 +11,6 @@ export const myProfileState = atom({
         gamePoint: "",
         gameMoney: "",
         record: "",
-
     }
 })
-
 

@@ -32,18 +32,31 @@ export const authRequest = async ({ method, url, params, data }: RequestType) =>
         });
 };
 
-export const request = ({ method, url, params, data }: RequestType) => {
-    const requestInstance = axios.create({
+export const normalReq = async ({ method, url, params, data }: RequestType) => {
+    const accessToken = getAccessToken();
+
+    const axiosReq = axios({
+        headers: {
+            'Content-Type': 'application/json; charset=UTF=8',
+            Authorization: accessToken ? `bearer ${accessToken}` : '',
+            accountId: 'test2@tmax.co.kr',
+        },
         method,
         url,
-        params: { ...params },
         data,
-    });
+        params: { ...params },
+    })
+        .then((res) => {
+            return res.data;
+        })
+        .catch((error) => {
+            return error.response.data;
+        });
 
-    requestInstance.interceptors.request.use((config) => {
+    axiosReq.interceptors.request.use((config) => {
         const accessToken = getAccessToken();
         config.headers.Authorization = `Bearer ${accessToken}`;
-        config.headers.accountId = 'test2@tmax.co.kr';
+        config.headers.accountId = 'test@tmax.co.kr';
         return config;
     });
 
@@ -73,4 +86,15 @@ export const request = ({ method, url, params, data }: RequestType) => {
             }
         }
     );
+};
+
+export const request = ({ method, url, params, data }: RequestType) => {
+    const requestInstance = axios.create({
+        method,
+        url,
+        params: { ...params },
+        data,
+    });
+
+    return requestInstance;
 };

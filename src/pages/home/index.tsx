@@ -70,6 +70,7 @@ const Home = () => {
                         }}
                         errorMessage={errors.email?.message}
                     />
+
                     <TextInputField
                         register={register}
                         name="password"

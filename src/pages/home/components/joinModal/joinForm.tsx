@@ -2,9 +2,11 @@ import { styled } from 'styled-components';
 import TextInputField from './textInputField';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { requestCreateUser } from '@api/auth';
+import { useState } from 'react';
 
 interface IJoinForm {
     email: string;
+    verifyCode: string;
     nickname: string;
     password: string;
     confirmPassword: string;
@@ -22,6 +24,8 @@ const JoinForm = ({ onSuccess }: JoinFormProps) => {
         watch,
     } = useForm<IJoinForm>({ mode: 'onChange' });
 
+    const [isVerifiedEmail, setIsVerifiedEmail] = useState<boolean>(false);
+
     const { email: emailValue, nickname: nicknameValue } = watch();
 
     const onSubmitJoinForm: SubmitHandler<IJoinForm> = async (fieldValues) => {
@@ -34,6 +38,10 @@ const JoinForm = ({ onSuccess }: JoinFormProps) => {
 
     const validatePasswordMatch = (value: string, formValues: IJoinForm) => {
         return value === formValues.password || '비밀번호가 일치하지 않습니다.';
+    };
+
+    const verifyEmail = () => {
+        setIsVerifiedEmail(true);
     };
 
     return (
@@ -55,6 +63,20 @@ const JoinForm = ({ onSuccess }: JoinFormProps) => {
                     errorMessage={errors.email?.message}
                     existCheck
                 />
+                <TextInputField
+                    register={register}
+                    value={emailValue}
+                    name="verifyCode"
+                    id="verifyCode"
+                    label="인증코드"
+                    required={'인증코드는 필수 항목입니다.'}
+                    pattern={{
+                        value: /^[0-9]*$/,
+                        message: '올바른 인증코드 형식이 아닙니다.',
+                    }}
+                    errorMessage={errors.verifyCode?.message}
+                />
+                <VerifyEmailButton onClick={verifyEmail}>인증하기</VerifyEmailButton>
                 <TextInputField
                     register={register}
                     value={nicknameValue}
@@ -117,3 +139,5 @@ const JoinButton = styled.input`
     padding: 10px;
     cursor: pointer;
 `;
+
+const VerifyEmailButton = styled.button``;

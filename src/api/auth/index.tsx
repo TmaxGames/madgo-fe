@@ -27,7 +27,7 @@ export const requestCreateUser = ({ email, password, nickname }: RequestCrateUse
 export const requestLoginUser = ({ email, password }: RequestJoinUserParams) => {
     const res = authRequest({
         method: 'POST',
-        url: 'security/v1/jwt/issue',
+        url: 'security/v1/jwt/login',
         data: {
             id: email,
             password,
@@ -47,8 +47,8 @@ export const requestLogoutUser = (email: string) => {
     return res;
 };
 
-export const requestRefreshToken = () => {
-    const res = authRequest({
+export const requestRefreshToken = async () => {
+    const res = request({
         method: 'POST',
         url: '/security/v1/jwt/refresh',
     });
